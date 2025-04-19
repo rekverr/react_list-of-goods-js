@@ -92,9 +92,7 @@ export const App = () => {
         {!isOriginalOrder() && (
           <button
             type="button"
-            className={cn('button', 'is-danger', {
-              'is-light': active !== 'Reset',
-            })}
+            className={cn('button', 'is-danger', 'is-light')}
             onClick={() => resetBtn()}
           >
             Reset
