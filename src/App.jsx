@@ -24,21 +24,26 @@ export const App = () => {
   const [active, setActive] = useState('');
   const [isReversed, setIsReversed] = useState(false);
 
-  const applySort = type => {
-    const sortedGoods = [...goodsFromServer];
-
-    if (type === SORT_BY_ALPHABETICALLY) {
-      sortedGoods.sort((a, b) => a.localeCompare(b));
-    } else if (type === SORT_BY_LENGTH) {
-      sortedGoods.sort((a, b) => a.length - b.length);
-    }
+  const sortByAlphabetically = () => {
+    const sorted = [...goodsFromServer].sort((a, b) => a.localeCompare(b));
 
     if (isReversed) {
-      sortedGoods.reverse();
+      sorted.reverse();
     }
 
-    setGoods(sortedGoods);
-    setActive(type);
+    setGoods(sorted);
+    setActive(SORT_BY_ALPHABETICALLY);
+  };
+
+  const sortByLength = () => {
+    const sorted = [...goodsFromServer].sort((a, b) => a.length - b.length);
+
+    if (isReversed) {
+      sorted.reverse();
+    }
+
+    setGoods(sorted);
+    setActive(SORT_BY_LENGTH);
   };
 
   const reverseBtn = () => {
@@ -64,7 +69,7 @@ export const App = () => {
           className={cn('button', 'is-info', {
             'is-light': active !== SORT_BY_ALPHABETICALLY,
           })}
-          onClick={() => applySort(SORT_BY_ALPHABETICALLY)}
+          onClick={() => sortByAlphabetically()}
         >
           {SORT_BY_ALPHABETICALLY}
         </button>
@@ -74,7 +79,7 @@ export const App = () => {
           className={cn('button', 'is-success', {
             'is-light': active !== SORT_BY_LENGTH,
           })}
-          onClick={() => applySort(SORT_BY_LENGTH)}
+          onClick={() => sortByLength()}
         >
           {SORT_BY_LENGTH}
         </button>
